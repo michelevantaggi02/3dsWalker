@@ -38,6 +38,7 @@ DATA		:=	data
 INCLUDES	:=	include
 GRAPHICS	:=	gfx
 GFXBUILD	:=	$(BUILD)
+ICON		:= 	assets/icon.png
 #ROMFS		:=	romfs
 #GFXBUILD	:=	$(ROMFS)/gfx
 
@@ -137,18 +138,20 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 
 export _3DSXDEPS	:=	$(if $(NO_SMDH),,$(OUTPUT).smdh)
 
-ifeq ($(strip $(ICON)),)
-	icons := $(wildcard *.png)
-	ifneq (,$(findstring $(TARGET).png,$(icons)))
-		export APP_ICON := $(TOPDIR)/$(TARGET).png
-	else
-		ifneq (,$(findstring icon.png,$(icons)))
-			export APP_ICON := $(TOPDIR)/icon.png
-		endif
-	endif
-else
-	export APP_ICON := $(TOPDIR)/$(ICON)
-endif
+#ifeq ($(strip $(ICON)),)
+#	icons := $(wildcard *.png)
+#	ifneq (,$(findstring $(TARGET).png,$(icons)))
+#		export APP_ICON := $(TOPDIR)/$(TARGET).png
+#	else
+#		ifneq (,$(findstring icon.png,$(icons)))
+#			export APP_ICON := $(TOPDIR)/icon.png
+#		endif
+#	endif
+#else
+#	export APP_ICON := $(TOPDIR)/$(ICON)
+#endif
+
+export APP_ICON	:= $(TOPDIR)/$(ICON)
 
 ifeq ($(strip $(NO_SMDH)),)
 	export _3DSXFLAGS += --smdh=$(CURDIR)/$(TARGET).smdh
